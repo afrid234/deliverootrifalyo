@@ -15,10 +15,16 @@ url = "https://api-sandbox.developers.deliveroo.com/order/v1/deliveroo/order-eve
 current_directory = os.path.dirname(os.path.abspath(__file__))
 
 # Construct the full path to the credentials.json file
-cred_path = os.path.join(current_directory, 'credentials.json')
+cred_path = os.path.join(current_directory, 'credentials.b64')
+
+decoded_credentials = base64.b64decode(cred_path).decode('utf-8')
+
+# Write the decoded credentials to a temporary file
+with open('credentials.json', 'w') as f:
+    f.write(decoded_credentials)
 
 # Initialize Firebase credentials
-cred = credentials.Certificate(cred_path)
+cred = credentials.Certificate('credentials.json')
 firebase_admin.initialize_app(cred)
 db = firestore.client()
 
