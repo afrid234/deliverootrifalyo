@@ -13,24 +13,28 @@ legacy_pos_webhook = False
 shared_secret = b'cdQ-Xk6wJ0BeVSX9c4JPQJOhVwa9uvQjHuiewvfozPXMTEV4FW9vG0zG0EcLZdS8J_BqqdT5GduM_wG-kdd12g'
 url = "https://api-sandbox.developers.deliveroo.com/order/v1/deliveroo/order-events"
 
+# Get the path of the current script
 current_directory = os.path.dirname(os.path.abspath(__file__))
 
-# Construct the full path to the credentials.json file
-cred_path = os.path.join(current_directory, 'credentials.b64')
+# Construct the full path to the credentials.b64 file
+cred_b64_path = os.path.join(current_directory, 'credentials.b64')
 
-decoded_credentials = base64.b64decode(cred_path).decode('utf-8')
+# Read the Base64 encoded credentials from the file
+with open(cred_b64_path, 'r') as f:
+    encoded_credentials = f.read()
 
-# Write the decoded credentials to a temporary file
-with open('credentials.json', 'w') as f:
+# Decode the Base64 encoded content
+decoded_credentials = base64.b64decode(encoded_credentials)
+
+# Write the decoded content to a temporary credentials.json file
+cred_path = os.path.join(current_directory, 'credentials.json')
+with open(cred_path, 'wb') as f:
     f.write(decoded_credentials)
 
 # Initialize Firebase credentials
-cred = credentials.Certificate('credentials.json')
+cred = credentials.Certificate(cred_path)
 firebase_admin.initialize_app(cred)
 db = firestore.client()
-
-
-
 
 
 
