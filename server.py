@@ -7,6 +7,7 @@ import requests
 import hashlib
 import json
 import os
+import base64
 
 legacy_pos_webhook = False
 shared_secret = b'cdQ-Xk6wJ0BeVSX9c4JPQJOhVwa9uvQjHuiewvfozPXMTEV4FW9vG0zG0EcLZdS8J_BqqdT5GduM_wG-kdd12g'
