@@ -77,9 +77,14 @@ def read_field(collection_name, document_id, field_name, data, event):
     doc_ref = db.collection(collection_name).document(document_id)
     doc = doc_ref.get()
 
+    email = str(doc.to_dict()[field_name])
+    print(email)
+
     if event == "order.new":
-    
+   
         print("New order has arrived!")
+
+        db.collection("users").document(email).collection("Realtime Notification").document("deliveroo").update({"json": data})
        
 
 
