@@ -57,7 +57,7 @@ class DeliverooHandler(BaseHTTPRequestHandler):
         location_id = data['body']['order']['location_id']
         event = data['event']
         print("Store ID:", location_id)
-        read_field("Stores", "Store ID", location_id, body.decode(), event)
+        read_field("Stores", "Deliveroo", location_id, body.decode(), event)
 
 
        
